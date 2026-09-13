@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopEase - E-Commerce</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f6fa;
+      color: #222;
+    }
+
+    /* Navbar */
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    .cart {
+      background: #38bdf8;
+      color: #111827;
+      padding: 9px 15px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 430px;
+      padding: 70px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #dbeafe, #f0f9ff);
+    }
+
+    .hero-content {
+      max-width: 550px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #0284c7;
+    }
+
+    .hero p {
+      color: #555;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .shop-btn {
+      display: inline-block;
+      background: #0284c7;
+      color: white;
+      padding: 13px 25px;
+      text-decoration: none;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    .shop-btn:hover {
+      background: #0369a1;
+    }
+
+    .hero-image {
+      font-size: 150px;
+    }
+
+    /* Search */
+    .search-section {
+      padding: 30px 7% 10px;
+      text-align: center;
+    }
+
+    .search-box {
+      width: 100%;
+      max-width: 600px;
+      padding: 15px 20px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      outline: none;
+      font-size: 16px;
+      background: white;
+    }
+
+    /* Categories */
+    .categories {
+      padding: 25px 7%;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      background: white;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: #0284c7;
+      color: white;
+    }
+
+    /* Products */
+    .products-section {
+      padding: 30px 7% 70px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+      transition: 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .product-image {
+      height: 220px;
+      background: #e0f2fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 90px;
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 8px;
+    }
+
+    .rating {
+      color: #f59e0b;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0284c7;
+    }
+
+    .old-price {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+
+    .add-cart {
+      width: 100%;
+      border: none;
+      background: #111827;
+      color: white;
+      padding: 11px;
+      margin-top: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-cart:hover {
+      background: #0284c7;
+    }
+
+    /* Footer */
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+
+    footer p {
+      color: #aaa;
+      margin-top: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      header {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero {
+        text-align: center;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero-image {
+        font-size: 90px;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">ShopEase</div>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#products">Products</a>
+      <a href="#categories">Categories</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="cart">
+      🛒 Cart: <span id="cart-count">0</span>
+    </div>
+  </header>
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Shop Smart.<br><span>Live Better.</span></h1>
+
+      <p>
+        Discover amazing products at the best prices.
+        Fashion, electronics, accessories and more.
+      </p>
+
+      <a href="#products" class="shop-btn">Shop Now →</a>
+    </div>
+
+    <div class="hero-image">🛍️</div>
+  </section>
+
+
+  <!-- Search -->
+  <section class="search-section">
+    <input
+      type="text"
+      id="search"
+      class="search-box"
+      placeholder="🔍 Search products..."
+    >
+  </section>
+
+
+  <!-- Categories -->
+  <section class="categories" id="categories">
+    <button class="category-btn active" onclick="filterProducts('all', this)">
+      All
+    </button>
+
+    <button class="category-btn" onclick="filterProducts('fashion', this)">
+      Fashion
+    </button>
+
+    <button class="category-btn" onclick="filterProducts('electronics', this)">
+      Electronics
+    </button>
+
+    <button class="category-btn" onclick="filterProducts('shoes', this)">
+      Shoes
+    </button>
+
+    <button class="category-btn" onclick="filterProducts('accessories', this)">
+      Accessories
+    </button>
+  </section>
+
+
+  <!-- Products -->
+  <section class="products-section" id="products">
+
+    <h2 class="section-title">Featured Products</h2>
+
+    <div class="products" id="product-list">
+
+      <div class="product-card" data-category="fashion">
+        <div class="product-image">👕</div>
+
+        <div class="product-info">
+          <h3>Premium T-Shirt</h3>
+          <div class="rating">★★★★★</div>
+
+          <span class="price">₹599</span>
+          <span class="old-price">₹999</span>
+
+          <button class="add-cart" onclick="addToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product-card" data-category="electronics">
+        <div class="product-image">🎧</div>
+
+        <div class="product-info">
+          <h3>Wireless Headphones</h3>
+          <div class="rating">★★★★☆</div>
+
+          <span class="price">₹1,499</span>
+          <span class="old-price">₹2,499</span>
+
+          <button class="add-cart" onclick="addToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product-card" data-category="shoes">
+        <div class="product-image">👟</div>
+
+        <div class="product-info">
+          <h3>Running Shoes</h3>
+          <div class="rating">★★★★★</div>
+
+          <span class="price">₹1,999</span>
+          <span class="old-price">₹3,499</span>
+
+          <button class="add-cart" onclick="addToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product-card" data-category="accessories">
+        <div class="product-image">⌚</div>
+
+        <div class="product-info">
+          <h3>Smart Watch</h3>
+          <div class="rating">★★★★☆</div>
+
+          <span class="price">₹2,499</span>
+          <span class="old-price">₹3,999</span>
+
+          <button class="add-cart" onclick="addToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product-card" data-category="fashion">
+        <div class="product-image">👖</div>
+
+        <div class="product-info">
+          <h3>Denim Jeans</h3>
+          <div class="rating">★★★★★</div>
+
+          <span class="price">₹1,299</span>
+          <span class="old-price">₹1,999</span>
+
+          <button class="add-cart" onclick="addToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product-card" data-category="electronics">
+        <div class="product-image">📱</div>
+
+        <div class="product-info">
+          <h3>Smartphone</h3>
+          <div class="rating">★★★★★</div>
+
+          <span class="price">₹14,999</span>
+          <span class="old-price">₹17,999</span>
+
+          <button class="add-cart" onclick="addToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product-card" data-category="shoes">
+        <div class="product-image">👞</div>
+
+        <div class="product-info">
+          <h3>Formal Shoes</h3>
+          <div class="rating">★★★★☆</div>
+
+          <span class="price">₹1,799</span>
+          <span class="old-price">₹2,799</span>
+
+          <button class="add-cart" onclick="addToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product-card" data-category="accessories">
+        <div class="product-image">🎒</div>
+
+        <div class="product-info">
+          <h3>Travel Backpack</h3>
+          <div class="rating">★★★★★</div>
+
+          <span class="price">₹899</span>
+          <span class="old-price">₹1,499</span>
+
+          <button class="add-cart" onclick="addToCart()">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer id="contact">
+    <h3>ShopEase</h3>
+    <p>Your favorite online shopping destination.</p>
+    <p>© 2026 ShopEase. All Rights Reserved.</p>
+  </footer>
+
+
+  <script>
+
+    // Cart
+    let cartCount = 0;
+
+    function addToCart() {
+      cartCount++;
+      document.getElementById("cart-count").textContent = cartCount;
+
+      alert("Product added to cart! 🛒");
+    }
+
+
+    // Category Filter
+    function filterProducts(category, button) {
+
+      const products = document.querySelectorAll(".product-card");
+      const buttons = document.querySelectorAll(".category-btn");
+
+      buttons.forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      products.forEach(product => {
+
+        if (
+          category === "all" ||
+          product.dataset.category === category
+        ) {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+
+      });
+    }
+
+
+    // Search
+    document.getElementById("search").addEventListener("input", function() {
+
+      const searchText = this.value.toLowerCase();
+      const products = document.querySelectorAll(".product-card");
+
+      products.forEach(product => {
+
+        const productName =
+          product.querySelector("h3").textContent.toLowerCase();
+
+        if (productName.includes(searchText)) {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
